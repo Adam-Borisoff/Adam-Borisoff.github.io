@@ -5,7 +5,8 @@
 <link rel="shortcut icon" href="http://www.udsd.org/uploaded/favicon.ico">
   <link rel="stylesheet" href="bootstrap-3.3.2-dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
-    <script type="text/javascript">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
 
 function onBlur() {
 	document.body.className = 'blurred';
@@ -23,6 +24,22 @@ if (/*@cc_on!@*/false) { // check for Internet Explorer
 }
 
 </script>
+<style type="text/css">
+.focused #focused, .blurred #blurred { display: inline }
+.focused #blurred, .blurred #focused { display: none }
+
+.focused {
+	background: white;
+	color: black;
+}
+
+.blurred {
+	background: black;
+	color: white;
+}
+
+</style>
+</head>
 </head>
 <body>
 <center>
