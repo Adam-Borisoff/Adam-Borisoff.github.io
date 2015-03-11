@@ -23,7 +23,7 @@ class HypixelPHP
     {
         $this->options = array_merge(
             array(
-                'api_key' => '',
+                'api_key' => '78b1087b-03f8-4ac3-86f8-2bf6df430f79',
                 'cache_time' => 600,
                 'cache_uuid_time' => 864000, // Time to cache UUIDs for playernames, in seconds. Playernames don't change often, so why cache them not a little longer?
                 'timeout' => 2,
