@@ -1,25 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Upper Dublin</title>
-<link rel="shortcut icon" href="http://www.udsd.org/uploaded/favicon.ico">
-  <link rel="stylesheet" href="bootstrap-3.3.2-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="css/main.css">
+<meta charset="UTF-8">
+<title>King of the Hill Episodes</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    padding: 20px;
+    text-align: center;
+  }
+  label {
+    font-weight: bold;
+  }
+  select {
+    padding: 5px;
+    margin: 0 5px;
+  }
+</style>
 </head>
 <body>
-<center>
-<font size="5" color="red"> 
-  |<a href="/games.html">Back to games</a>|
-  <a href="http://adam-borisoff.github.io/">Back to home</a>|
-</font>
-<iframe
-  src="https://vidsrc.to/embed/tv/tt0944947/1/1"
-  allowfullscreen
-  referrerpolicy="origin"
-  style="width:100%;aspect-ratio:16/9;border:0;">
-</iframe>
 
-</center>
+<h2>King of the Hill - Episodes</h2>
+
+<div>
+  <label for="season">Season:</label>
+  <select id="season"></select>
+  
+  <label for="episode">Episode:</label>
+  <select id="episode"></select>
+</div>
+
+<div style="max-width:900px;margin:auto;">
+  <div style="position:relative;padding-top:56.25%;margin-top:1em;">
+    <iframe id="kothPlayer"
+            src=""
+            allowfullscreen
+            referrerpolicy="origin"
+            style="position:absolute;inset:0;width:100%;height:100%;border:0;">
+    </iframe>
+  </div>
+</div>
+
+<script>
+  const imdbId = "tt0118375"; // King of the Hill IMDb ID
+  const base = "https://vidsrc.to"; // Change if VidSrc domain updates
+
+  // Set the latest season & episode here
+  const latestSeason = 13;
+  const latestEpisode = 24;
+
+  const totalSeasons = 13;
+  const episodeCounts = {
+    1: 12,  2: 23,  3: 25,  4: 24,  5: 20,  6: 22,  7: 23,
+    8: 22,  9: 15, 10: 15, 11: 12, 12: 22, 13: 24
+  };
+
+  const seasonSelect = document.getElementById("season");
+  const episodeSelect = document.getElementById("episode");
+  const player = document.getElementById("kothPlayer");
+
+  // Populate seasons
+  for (let s = 1; s <= totalSeasons; s++) {
+    const opt = new Option(`Season ${s}`, s);
+    seasonSelect.add(opt);
+  }
+
+  // Populate episodes based on selected season
+  function updateEpisodes() {
+    episodeSelect.length = 0;
+    const season = parseInt(seasonSelect.value, 10);
+    const count = episodeCounts[season] || 0;
+    for (let e = 1; e <= count; e++) {
+      const opt = new Option(`Episode ${e}`, e);
+      episodeSelect.add(opt);
+    }
+  }
+
+  // Update player iframe
+  function updatePlayer() {
+    const s = seasonSelect.value;
+    const e = episodeSelect.value;
+    player.src = `${base}/embed/tv/${imdbId}/${s}/${e}`;
+  }
+
+  // Event listeners
+  seasonSelect.addEventListener("change", () => {
+    updateEpisodes();
+    episodeSelect.value = 1;
+    updatePlayer();
+  });
+  episodeSelect.addEventListener("change", updatePlayer);
+
+  // Initialize with latest episode
+  seasonSelect.value = latestSeason;
+  updateEpisodes();
+  episodeSelect.value = latestEpisode;
+  updatePlayer();
+</script>
+
 </body>
 </html>
-
